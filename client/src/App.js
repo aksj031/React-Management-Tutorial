@@ -9,6 +9,7 @@ import { TableRow } from '@mui/material';
 import { TableCell } from '@mui/material';
 import { withStyles } from '@mui/styles';
 import { useTheme } from '@mui/material/styles';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const styles = theme => ({
   root: {
@@ -18,18 +19,28 @@ const styles = theme => ({
   },
   table:{
     minWidth: 1080
+  },
+  progress: {
+    margin: useTheme().spacing(2)
   }
 })
 
 class App extends Component{
   state={
-    customers: ""
+    customers: "",
+    completed: 0
   }
 
   componentDidMount(){
+    this.timer = setInterval(this.progress, 500);
     this.callApi()
       .then(res => this.setState({customers: res}))
       .catch(err => console.log(err));
+  }
+
+  progress = () => {
+    const { completed } = this.state;
+    this.setState({ completed: completed >= 100 ? 0 : completed + 10});
   }
 
   callApi = async()=> {
@@ -64,7 +75,13 @@ class App extends Component{
                 job={c.job}
                 />
               )
-            }) : ""}
+            }) : 
+            <TableRow>
+              <TableCell colSpan="6" align='center'>
+                <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed}/>
+              </TableCell>
+            </TableRow>
+            }
           </TableBody>
         </Table>
       </Paper>
