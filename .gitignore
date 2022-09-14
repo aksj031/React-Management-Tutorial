@@ -6,6 +6,9 @@
 # backupcode
 /svbackup.js
 
+# upload
+/upload
+
 # dependencies
 /node_modules
 /.pnp
