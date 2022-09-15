@@ -3,6 +3,23 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { MuiThemeProvider } from '@material-ui/core/styles'
+import { createTheme } from '@mui/material/styles'
+
+const theme = createTheme({
+  typography:{
+    fontFamily: '"Noto Sans KR", serif',
+  }
+})
+/*
+const rootNode = document.getElementById('root');
+ReactDOM.createRoot(rootNode).render(
+  <React.StrictMode>
+    <MuiThemeProvider>
+      <App />
+    </MuiThemeProvider>
+  </React.StrictMode>
+);*/
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
